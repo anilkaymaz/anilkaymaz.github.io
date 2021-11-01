@@ -1,344 +1,233 @@
-<html>
-  <head>
-    <title>Todo App</title>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'> -->
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">    
+<!DOCTYPE html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Todo App JavaScript | CodingNepal</title> -->
     <style>
-body {
-  background: #fff;
-  color: #333;
-  font-family: Lato, sans-serif;
-}
-.container {
-  display: block;
-  width: 400px;
-  margin: 100px auto 0;
-}
-ul {
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
-li * {
-  float: left;
+::selection{
+  color: #ffff;
+  background: rgb(142, 73, 232);
 }
-li, h3 {
-  clear:both;
-  list-style:none;
-}
-input, button {
-  outline: none;
-}
-button {
-  background: none;
-  border: 0px;
-  color: #888;
-  font-size: 15px;
-  width: 60px;
-  margin: 10px 0 0;
-  font-family: Lato, sans-serif;
-  cursor: pointer;
-}
-button:hover {
-  color: #333;
-}
-/* Heading */
-h3,
-label[for='new-task'] {
-  color: #333;
-  font-weight: 700;
-  font-size: 15px;
-  border-bottom: 2px solid #333;
-  padding: 30px 0 10px;
-  margin: 0;
-  text-transform: uppercase;
-}
-input[type="text"] {
-  margin: 0;
-  font-size: 18px;
-  line-height: 18px;
-  height: 18px;
+body{
+  width: 100%;
+  height: 100vh;
+  /* overflow: hidden; */
   padding: 10px;
-  border: 1px solid #ddd;
+  background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
+}
+.wrapper{
   background: #fff;
-  border-radius: 6px;
-  font-family: Lato, sans-serif;
-  color: #888;
+  max-width: 400px;
+  width: 100%;
+  margin: 120px auto;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
 }
-input[type="text"]:focus {
-  color: #333;
+.wrapper header{
+  font-size: 30px;
+  font-weight: 600;
 }
-
-/* New Task */
-label[for='new-task'] {
-  display: block;
-  margin: 0 0 20px;
+.wrapper .inputField{
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  height: 45px;
 }
-input#new-task {
-  float: left;
-  width: 318px;
+.inputField input{
+  width: 85%;
+  height: 100%;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 17px;
+  padding-left: 15px;
+  transition: all 0.3s ease;
 }
-p > button:hover {
-  color: #0FC57C;
+.inputField input:focus{
+  border-color: #8E49E8;
 }
-
-/* Task list */
-li {
-  overflow: hidden;
-  padding: 20px 0;
-  border-bottom: 1px solid #eee;
+.inputField button{
+  width: 50px;
+  height: 100%;
+  border: none;
+  color: #fff;
+  margin-left: 5px;
+  font-size: 21px;
+  outline: none;
+  background: #8E49E8;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
-li > input[type="checkbox"] {
-  margin: 0 10px;
+.inputField button:hover,
+.footer button:hover{
+  background: #721ce3;
+}
+.inputField button.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+.wrapper .todoList{
+  max-height: 250px;
+  overflow-y: auto;
+}
+.todoList li{
   position: relative;
-  top: 15px;
+  list-style: none;
+  height: 45px;
+  line-height: 45px;
+  margin-bottom: 8px;
+  background: #f2f2f2;
+  border-radius: 3px;
+  padding: 0 15px;
+  cursor: default;
+  overflow: hidden;
 }
-li > label {
-  font-size: 18px;
-  line-height: 40px;
-  width: 237px;
-  padding: 0 0 0 11px;
+.todoList li .icon{
+  position: absolute;
+  right: -45px;
+  background: #e74c3c;
+  width: 45px;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-li >  input[type="text"] {
-  width: 226px;
+.todoList li:hover .icon{
+  right: 0px;
 }
-li > .delete:hover {
-  color: #CF2323;
+.wrapper .footer{
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: space-between;
 }
-
-/* Completed */
-#completed-tasks label {
-  text-decoration: line-through;
-  color: #888;
+.footer button{
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 5px;
+  background: #8E49E8;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
-
-/* Edit Task */
-ul li input[type=text] {
-  display:none;
+.footer button.active{
+  opacity: 1;
+  pointer-events: auto;
 }
-
-ul li.editMode input[type=text] {
-  display:block;
-}
-
-ul li.editMode label {
-  display:none;
-}
-</style>
-  </head>
-  <body>
-    <div class="container">
-      <p>
-        <label for="new-task">Add Item</label><input id="new-task" type="text"><button>Add</button>
-      </p>
-      
-      <h3>Todo</h3>
-      <ul id="incomplete-tasks">
-        <li><input type="checkbox"><label>Pay Bills</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
-        <li class="editMode"><input type="checkbox"><label>Go Shopping</label><input type="text" value="Go Shopping"><button class="edit">Edit</button><button class="delete">Delete</button></li>
-        
-      </ul>
-      
-      <h3>Completed</h3>
-      <ul id="completed-tasks">
-        <li><input type="checkbox" checked><label>See the Doctor</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
-      </ul>
+	</style>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <header>Todo App</header>
+    <div class="inputField">
+      <input type="text" placeholder="Add your new todo">
+      <button><i class="fas fa-plus"></i></button>
     </div>
+    <ul class="todoList">
+      <!-- data are comes from local storage -->
+    </ul>
+    <div class="footer">
+      <span>You have <span class="pendingTasks"></span> pending tasks</span>
+      <button>Clear All</button>
+    </div>
+  </div>
 
-    <script type="text/javascript" src="app.js"></script>
+  <!-- <script src="script.js"></script> -->
 
-    
-    
-    
-    <script>
-    
-    //Document is the DOM can be accessed in the console with document.window.
-// Tree is from the top, html, body, p etc.
+	<script>
+	// getting all required elements
+const inputBox = document.querySelector(".inputField input");
+const addBtn = document.querySelector(".inputField button");
+const todoList = document.querySelector(".todoList");
+const deleteAllBtn = document.querySelector(".footer button");
 
-//Problem: User interaction does not provide the correct results.
-//Solution: Add interactivity so the user can manage daily tasks.
-//Break things down into smaller steps and take each step at a time.
-
-
-//Event handling, uder interaction is what starts the code execution.
-
-var taskInput=document.getElementById("new-task");//Add a new task.
-var addButton=document.getElementsByTagName("button")[0];//first button
-var incompleteTaskHolder=document.getElementById("incomplete-tasks");//ul of #incomplete-tasks
-var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
-
-
-//New task list item
-var createNewTaskElement=function(taskString){
-
-	var listItem=document.createElement("li");
-
-	//input (checkbox)
-	var checkBox=document.createElement("input");//checkbx
-	//label
-	var label=document.createElement("label");//label
-	//input (text)
-	var editInput=document.createElement("input");//text
-	//button.edit
-	var editButton=document.createElement("button");//edit button
-
-	//button.delete
-	var deleteButton=document.createElement("button");//delete button
-
-	label.innerText=taskString;
-
-	//Each elements, needs appending
-	checkBox.type="checkbox";
-	editInput.type="text";
-
-	editButton.innerText="Edit";//innerText encodes special characters, HTML does not.
-	editButton.className="edit";
-	deleteButton.innerText="Delete";
-	deleteButton.className="delete";
-
-
-
-	//and appending.
-	listItem.appendChild(checkBox);
-	listItem.appendChild(label);
-	listItem.appendChild(editInput);
-	listItem.appendChild(editButton);
-	listItem.appendChild(deleteButton);
-	return listItem;
+// onkeyup event
+inputBox.onkeyup = ()=>{
+  let userEnteredValue = inputBox.value; //getting user entered value
+  if(userEnteredValue.trim() != 0){ //if the user value isn't only spaces
+    addBtn.classList.add("active"); //active the add button
+  }else{
+    addBtn.classList.remove("active"); //unactive the add button
+  }
 }
 
+showTasks(); //calling showTask function
 
-
-var addTask=function(){
-	console.log("Add Task...");
-	//Create a new list item with the text from the #new-task:
-	var listItem=createNewTaskElement(taskInput.value);
-
-	//Append listItem to incompleteTaskHolder
-	incompleteTaskHolder.appendChild(listItem);
-	bindTaskEvents(listItem, taskCompleted);
-
-	taskInput.value="";
-
+addBtn.onclick = ()=>{ //when user click on plus icon button
+  let userEnteredValue = inputBox.value; //getting input field value
+  let getLocalStorageData = localStorage.getItem("New Todo"); //getting localstorage
+  if(getLocalStorageData == null){ //if localstorage has no data
+    listArray = []; //create a blank array
+  }else{
+    listArray = JSON.parse(getLocalStorageData);  //transforming json string into a js object
+  }
+  listArray.push(userEnteredValue); //pushing or adding new value in array
+  localStorage.setItem("New Todo", JSON.stringify(listArray)); //transforming js object into a json string
+  showTasks(); //calling showTask function
+  addBtn.classList.remove("active"); //unactive the add button once the task added
 }
 
-//Edit an existing task.
-
-var editTask=function(){
-console.log("Edit Task...");
-console.log("Change 'edit' to 'save'");
-
-
-var listItem=this.parentNode;
-
-var editInput=listItem.querySelector('input[type=text]');
-var label=listItem.querySelector("label");
-var containsClass=listItem.classList.contains("editMode");
-		//If class of the parent is .editmode
-		if(containsClass){
-
-		//switch to .editmode
-		//label becomes the inputs value.
-			label.innerText=editInput.value;
-		}else{
-			editInput.value=label.innerText;
-		}
-
-		//toggle .editmode on the parent.
-		listItem.classList.toggle("editMode");
+function showTasks(){
+  let getLocalStorageData = localStorage.getItem("New Todo");
+  if(getLocalStorageData == null){
+    listArray = [];
+  }else{
+    listArray = JSON.parse(getLocalStorageData); 
+  }
+  const pendingTasksNumb = document.querySelector(".pendingTasks");
+  pendingTasksNumb.textContent = listArray.length; //passing the array length in pendingtask
+  if(listArray.length > 0){ //if array length is greater than 0
+    deleteAllBtn.classList.add("active"); //active the delete button
+  }else{
+    deleteAllBtn.classList.remove("active"); //unactive the delete button
+  }
+  let newLiTag = "";
+  listArray.forEach((element, index) => {
+    newLiTag += `<li>${element}<span class="icon" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></span></li>`;
+  });
+  todoList.innerHTML = newLiTag; //adding new li tag inside ul tag
+  inputBox.value = ""; //once task added leave the input field blank
 }
 
-
-
-
-//Delete task.
-var deleteTask=function(){
-		console.log("Delete Task...");
-
-		var listItem=this.parentNode;
-		var ul=listItem.parentNode;
-		//Remove the parent list item from the ul.
-		ul.removeChild(listItem);
-
+// delete task function
+function deleteTask(index){
+  let getLocalStorageData = localStorage.getItem("New Todo");
+  listArray = JSON.parse(getLocalStorageData);
+  listArray.splice(index, 1); //delete or remove the li
+  localStorage.setItem("New Todo", JSON.stringify(listArray));
+  showTasks(); //call the showTasks function
 }
 
-
-//Mark task completed
-var taskCompleted=function(){
-		console.log("Complete Task...");
+// delete all tasks function
+deleteAllBtn.onclick = ()=>{
+  listArray = []; //empty the array
+  localStorage.setItem("New Todo", JSON.stringify(listArray)); //set the item in localstorage
+  showTasks(); //call the showTasks function
+}
 	
-	//Append the task list item to the #completed-tasks
-	var listItem=this.parentNode;
-	completedTasksHolder.appendChild(listItem);
-				bindTaskEvents(listItem, taskIncomplete);
-
-}
-
-
-var taskIncomplete=function(){
-		console.log("Incomplete Task...");
-//Mark task as incomplete.
-	//When the checkbox is unchecked
-		//Append the task list item to the #incomplete-tasks.
-		var listItem=this.parentNode;
-	incompleteTaskHolder.appendChild(listItem);
-			bindTaskEvents(listItem,taskCompleted);
-}
-
-
-
-var ajaxRequest=function(){
-	console.log("AJAX Request");
-}
-
-//The glue to hold it all together.
-
-
-//Set the click handler to the addTask function.
-addButton.onclick=addTask;
-addButton.addEventListener("click",addTask);
-addButton.addEventListener("click",ajaxRequest);
-
-
-var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
-	console.log("bind list item events");
-//select ListItems children
-	var checkBox=taskListItem.querySelector("input[type=checkbox]");
-	var editButton=taskListItem.querySelector("button.edit");
-	var deleteButton=taskListItem.querySelector("button.delete");
-
-
-			//Bind editTask to edit button.
-			editButton.onclick=editTask;
-			//Bind deleteTask to delete button.
-			deleteButton.onclick=deleteTask;
-			//Bind taskCompleted to checkBoxEventHandler.
-			checkBox.onchange=checkBoxEventHandler;
-}
-
-//cycle over incompleteTaskHolder ul list items
-	//for each list item
-	for (var i=0; i<incompleteTaskHolder.children.length;i++){
-
-		//bind events to list items chldren(tasksCompleted)
-		bindTaskEvents(incompleteTaskHolder.children[i],taskCompleted);
-	}
-
-
-
-
-//cycle over completedTasksHolder ul list items
-	for (var i=0; i<completedTasksHolder.children.length;i++){
-	//bind events to list items chldren(tasksIncompleted)
-		bindTaskEvents(completedTasksHolder.children[i],taskIncomplete);
-	}
-
-
-
-
-// Issues with usabiliy don't get seen until they are in front of a human tester.
-
-//prevent creation of empty tasks.
-
-//Shange edit to save when you are in edit mode.</script>
-  </body>
+	</script>
+</body>
 </html>
